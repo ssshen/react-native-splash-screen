@@ -3,8 +3,13 @@ package org.devio.rn.splashscreen;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Build;
+import android.os.LocaleList;
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 
 /**
  * SplashScreen
@@ -18,6 +23,13 @@ public class SplashScreen {
     private static Dialog mSplashDialog;
     private static WeakReference<Activity> mActivity;
 
+    public static Dialog initDialog(final Activity activity) {
+        mSplashDialog = new Dialog(activity, R.style.SplashScreen_SplashTheme);
+        mSplashDialog.setContentView(R.layout.launch_screen);
+        mSplashDialog.setCancelable(false);
+        return mSplashDialog;
+    }
+
     /**
      * 打开启动屏
      */
@@ -28,10 +40,6 @@ public class SplashScreen {
             @Override
             public void run() {
                 if (!activity.isFinishing()) {
-                    mSplashDialog = new Dialog(activity, themeResId);
-                    mSplashDialog.setContentView(R.layout.launch_screen);
-                    mSplashDialog.setCancelable(false);
-
                     if (!mSplashDialog.isShowing()) {
                         mSplashDialog.show();
                     }
